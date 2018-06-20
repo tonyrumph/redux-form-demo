@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store, select, Action } from '@ngrx/store';
+import { IApplicationState, IFormState } from './state/application-state';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+
+  public formState: IFormState;
+
+  constructor(private store: Store<IApplicationState>) {
+    // Subscribe to the newest version of the formState:
+    this.store.pipe(select(e => e.form)).subscribe(fs => {
+      this.formState = fs;
+    });
+  }
+
+  onFormActions($event: Action[]) {
+    // whenever form (child) component emits event with actions as payload, dispatch them
+    const actions = $event;
+    actions.forEach(this.store.dispatch.bind(this.store));
+  }
+
+  onFormSubmitted() {
+    // this is the place where we should dispatch the action to effects
+    console.log(this.formState);
+  }
+
 }
