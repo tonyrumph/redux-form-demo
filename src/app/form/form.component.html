@@ -1,8 +1,24 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <input matInput placeholder="What is your name" [formControl]="myForm.controls['name']"/>
       <mat-error *ngIf="myForm.controls['name'].hasError('required')">Required!</mat-error>
       <mat-error *ngIf="myForm.controls['name'].hasError('maxlength')">Too long!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Select country" [formControl]="myForm.controls['country']">
+        <mat-option *ngFor="let country of form.countries" [value]="country">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Select city" [formControl]="myForm.controls['city']">
+        <mat-option *ngFor="let city of form.cities" [value]="city">
+          {{city.name}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit" [disabled]="!form.isValid">Submit</button>
 </form>

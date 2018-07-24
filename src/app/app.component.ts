@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Store, select, Action } from '@ngrx/store';
 import { IApplicationState, IFormState } from './state/application-state';
+import { loadCountries } from './actions';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,10 @@ export class AppComponent {
     // Subscribe to the newest version of the formState:
     this.store.pipe(select(e => e.form)).subscribe(fs => {
       this.formState = fs;
+
+      if(!fs.countries) {
+        this.store.dispatch(loadCountries());
+      }
     });
   }
 
