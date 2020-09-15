@@ -27,6 +27,7 @@ export class FormComponent implements OnInit, OnChanges {
         Validators.maxLength(10)
       ]
     }),
+    title: new FormControl(this.form.title),
     country: new FormControl(this.form.country),
     city: new FormControl({ disabled: true, value: this.form.city })
   });
@@ -49,6 +50,9 @@ export class FormComponent implements OnInit, OnChanges {
     this.myForm.controls['city'].valueChanges.pipe(distinctUntilChanged((x, y) => x === y || (x ? x.id : undefined) === (y ? y.id : undefined))).subscribe((value: ICity) => {
       this.actionsEmitted.emit([formCityChanged(value)]);
     });
+    this.myForm.controls['title'].valueChanges.pipe(distinctUntilChanged((x, y) => x === y || (x ? x.id : undefined) === (y ? y.id : undefined))).subscribe((value: ICity) => {
+      this.actionsEmitted.emit([formCityChanged(value)]);
+    });
 
     this.myForm
         .statusChanges
@@ -67,7 +71,7 @@ export class FormComponent implements OnInit, OnChanges {
 
     // whenever input changes (and input is the form's state in the store), we update the value of the control
     this.myForm.controls['name'].setValue(changes.form.currentValue.name);
-
+    this.myForm.controls['title'].setValue(changes.form.currentValue.title);
     this.myForm.controls['country'].setValue(changes.form.currentValue.country);
     this.myForm.controls['city'].setValue(changes.form.currentValue.city);
   }

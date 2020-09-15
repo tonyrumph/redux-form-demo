@@ -1,11 +1,18 @@
 import { Action } from "@ngrx/store";
-import { ICountry, ICity } from "../state/application-state";
+import { ICountry, ICity, ITitle } from "../state/application-state";
 
 export const FORM_NAME_CHANGED = 'FORM_NAME_CHANGED';
 export const FORM_SET_VALIDITY = 'FORM_SET_VALIDITY';
+
 export const LOAD_COUNTRIES = 'LOAD_COUNTRIES';
 export const COUNTRIES_LOADED = 'COUNTRIES_LOADED';
 export const FORM_COUNTRY_CHANGED = 'FORM_COUNTRY_CHANGED';
+
+export const LOAD_TITLES = 'LOAD_TITLES';
+export const LOAD_TITLES_FAILURE = 'LOAD_TITLES_FAILURE';
+export const TITLES_LOADED = 'TITLES_LOADED';
+export const FORM_TITLE_CHANGED = 'FORM_TITLE_CHANGED';
+
 export const LOAD_CITIES_FOR_COUNTRY = 'LOAD_CITIES_FOR_COUNTRY';
 export const CITIES_FOR_COUNTRY_LOADED = 'CITIES_FOR_COUNTRY_LOADED';
 export const FORM_CITY_CHANGED = 'FORM_CITY_CHANGED';
@@ -36,6 +43,28 @@ export interface ICountriesLoadedAction extends Action {
 export interface IFormCountryChangedAction extends Action {
     payload: {
         country: ICountry
+    }
+}
+
+export interface ILoadTitlesAction extends Action {
+    payload: {
+    }
+}
+
+export interface ILoadTitlesFailure extends Action {
+    payload: {
+    }
+}
+
+export interface ITitlesLoadedAction extends Action {
+    payload: {
+        titles: ITitle[]
+    }
+}
+
+export interface IFormTitleChangedAction extends Action {
+    payload: {
+        title: ITitle
     }
 }
 
@@ -97,6 +126,40 @@ export function formCountryChanged(country: ICountry): IFormCountryChangedAction
         type: FORM_COUNTRY_CHANGED,
         payload: {
             country
+        }
+    }
+};
+
+export function loadTitlesFailure(err: any): ILoadTitlesFailure {
+    return {
+        type: LOAD_TITLES_FAILURE,
+        payload: {
+            err
+        }
+    }
+};
+
+export function loadTitles(): ILoadTitlesAction {
+    return {
+        type: LOAD_TITLES,
+        payload: {}
+    }
+};
+
+export function titlesLoaded(titles: ITitle[]) : ITitlesLoadedAction {
+    return {
+        type: TITLES_LOADED,
+        payload: {
+            titles
+        }
+    }
+};
+
+export function formTitleChanged(title: ITitle): IFormTitleChangedAction {
+    return {
+        type: FORM_TITLE_CHANGED,
+        payload: {
+            title
         }
     }
 };

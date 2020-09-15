@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store, select, Action } from '@ngrx/store';
 import { IApplicationState, IFormState } from './state/application-state';
-import { loadCountries } from './actions';
+import { loadCountries, loadTitles } from './actions';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,10 @@ export class AppComponent {
 
       if(!fs.countries) {
         this.store.dispatch(loadCountries());
+      }
+
+      if (!fs.titles) {
+        this.store.dispatch(loadTitles());
       }
     });
   }

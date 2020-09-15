@@ -6,6 +6,14 @@
     </mat-form-field>
 
     <mat-form-field>
+      <mat-select placeholder="Select Title" [formControl]="myForm.controls['title']">
+        <mat-option *ngFor="let title of form.titles" [value]="title">
+          {{title.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
       <mat-select placeholder="Select country" [formControl]="myForm.controls['country']">
         <mat-option *ngFor="let country of form.countries" [value]="country">
           {{country.name}}
